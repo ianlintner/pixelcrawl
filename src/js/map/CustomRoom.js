@@ -2,7 +2,7 @@
  * Basic Room (square)
  * @constructor
  */
-var Room = function(x, y, width, height) {
+var CustomRoom = function(x, y, width, height) {
   this.tiles = [];
   this.doors = [];
   this.floorTile = 0;
@@ -14,7 +14,7 @@ var Room = function(x, y, width, height) {
   this.y = y;
 };
 
-Room.prototype.createRoom = function createRoom(roomOptions) {
+CustomRoom.prototype.createRoom = function createRoom(roomOptions) {
   this.width = roomOptions.maxWidth;
   this.height = roomOptions.maxHeight;
   this.x = roomOptions.x;
@@ -27,9 +27,9 @@ Room.prototype.createRoom = function createRoom(roomOptions) {
  * @param map
  * @param layer
  */
-Room.prototype.render = function render(map, layer) {
+CustomRoom.prototype.render = function render(map, layer) {
   map.fill(this.floorTile, this.x, this.y, this.width, this.height, layer);
 };
 
 
-module.exports = Room;
+module.exports = CustomRoom;

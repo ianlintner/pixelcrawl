@@ -51,6 +51,7 @@ function bsp(width, height) {
   var leafs = [];
   var currentLeaf = null;
   var root = new Leaf(0, 0, width, height);
+  var output = [];
   leafs.push(root);
 
   var didSplit = true;
@@ -72,11 +73,14 @@ function bsp(width, height) {
             leafs.push(currentLeaf.rightChild);
             didSplit = true;
           }
+          else {
+            output.push(currentLeaf);
+          }
         }
       }
     }
   }
-  return leafs;
+  return output;
 }
 
 module.exports = bsp;

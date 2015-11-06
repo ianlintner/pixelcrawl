@@ -2,7 +2,7 @@
  * Basic Room (square)
  * @constructor
  */
-var Room = function(x, y, width, height) {
+var CircleRoom = function(x, y, width, height) {
   this.tiles = [];
   this.doors = [];
   this.floorTile = 0;
@@ -14,7 +14,7 @@ var Room = function(x, y, width, height) {
   this.y = y;
 };
 
-Room.prototype.createRoom = function createRoom(roomOptions) {
+CircleRoom.prototype.createRoom = function createRoom(roomOptions) {
   this.width = roomOptions.maxWidth;
   this.height = roomOptions.maxHeight;
   this.x = roomOptions.x;
@@ -27,9 +27,21 @@ Room.prototype.createRoom = function createRoom(roomOptions) {
  * @param map
  * @param layer
  */
-Room.prototype.render = function render(map, layer) {
+CircleRoom.prototype.render = function render(map, layer) {
   map.fill(this.floorTile, this.x, this.y, this.width, this.height, layer);
 };
 
 
-module.exports = Room;
+CircleRoom.prototype.drawCircle = function drawCircle(x0, y0, radius){
+  var output = [];
+  for (var x = -radius; x < radius ; x++) {
+    var height = Math.sqrt(radius * radius - x * x);
+
+    for (var y = -height; y < height; y++) {
+      output.push([x+x0,y+y0]);
+    }
+  }
+  return output;
+};
+
+module.exports = CircleRoom;

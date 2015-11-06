@@ -1,5 +1,6 @@
 var Player = require('../entities/player');
 var Walk = require('../util/walk');
+var bug = require('../util/debugger');
 
 var Game = function () {
   this.testentity = null;
@@ -16,10 +17,15 @@ Game.prototype = {
     this.map = this.game.add.tilemap();
     //(tileset, key, tileWidth, tileHeight, tileMargin, tileSpacing, gid)
     this.map.addTilesetImage('crawl_tileset');
-    this.layer1 = this.map.create('level1', 200, 200, 32, 32);
+    this.layer1 = this.map.create('level1', 100, 100, 32, 32);
     this.layer1.resizeWorld();
-    this.map.fill(809, 0, 0, 200, 200, this.layer1);
-    this.map.fill(0, 10, 10, 5, 8, this.layer1);
+    this.map.fill(809, 0, 0, 100, 100, this.layer1);
+    //this.map.fill(0, 10, 10, 5, 8, this.layer1);
+    var leafs = bug();
+    for(var j=0;j<leafs.length;j++) {
+      var currentRoom = leafs[j];
+      this.map.fill(0, currentRoom.x+1, currentRoom.y+1, currentRoom.width-2, currentRoom.height-2, this.layer1);
+    }
     this.player = this.game.add.sprite(11*32, 11*32, 'player');
 
     this.game.physics.arcade.enable(this.layer1);
@@ -43,6 +49,7 @@ Game.prototype = {
     //this.outlineRoom(this.map,5,5,5,10);
 
     this.input.onDown.add(this.onInputDown, this);
+
 
   },
 
