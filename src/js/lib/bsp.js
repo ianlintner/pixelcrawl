@@ -1,5 +1,6 @@
 var random = require('../util/random');
 
+
 function bsp(width, height) {
 
   var Leaf = function(x, y, width, height) {
@@ -74,13 +75,13 @@ function bsp(width, height) {
             didSplit = true;
           }
           else {
-            output.push(currentLeaf);
+            output.push(currentLeaf)
           }
         }
       }
     }
   }
-  return output;
+  return leafs;
 }
 
 module.exports = bsp;

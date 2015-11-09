@@ -12,6 +12,7 @@ module.exports.getRandomArbitrary = function getRandomArbitrary(min, max) {
 module.exports.getRandomInt = function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
 /**
  * Shuffle an array randomly
  * @param array
@@ -25,4 +26,13 @@ module.exports.shuffleArray = function shuffleArray(array) {
     array[j] = temp;
   }
   return array;
+};
+
+/**
+ * Picks a random array value from an array
+ * @param array
+ * @returns {*}
+ */
+module.exports.getRandomArrayValue = function getRandomArrayValue(array) {
+  return array[getRandomInt(0,array.length-1)];
 };
