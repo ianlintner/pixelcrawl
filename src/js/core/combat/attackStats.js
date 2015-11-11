@@ -1,4 +1,4 @@
-var AttackStats = function AttackStats() {
+var AttackStats = function() {
   //Accuracy
   this.BaseAttackBonus = 0;
   this.TemporaryAttackBonus = 0;

@@ -1,5 +1,8 @@
-var EventQueue = function EventQueue() {
-  this.events = [];
+var Event = require('../core/events/event');
+var SortedArray = require("collections/sorted-array");
+
+var EventQueue = function() {
+  this.events = new SortedArray();
   this.currentEvent = null;
 };
 
@@ -8,29 +11,11 @@ EventQueue.prototype.sendEvent = function queue(event) {
 };
 
 EventQueue.prototype.sendInterruptEvent = function queue(event) {
-  this.events.push(0);
-};
-
-EventQueue.prototype.getEvent = function() {
-  if(this.events.length > 0) {
-    this.currentEvent = this.events.shift();
-    return this.currentEvent;
-  }
-  else {
-    return null;
-  }
-};
-
-EventQueue.prototype.peek = function() {
-  if(this.events.length > 0) {
-   return this.events[0];
-  }
-  else {
-    return null;
-  }
+  this.events.unshift(event);
 };
 
 EventQueue.prototype.readEvent = function() {
+  this.currentEvent = this.events.shift();
   return this.currentEvent;
 };
 

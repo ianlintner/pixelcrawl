@@ -1,4 +1,4 @@
-var BaseActor = require('../js/core/actors/BaseActor');
+var BaseActor = require('baseActor');
 
 var BaseCharacter = function() {
   BaseActor.call(this);
@@ -23,8 +23,9 @@ var BaseCharacter = function() {
 
 BaseCharacter.prototype = Object.create(BaseActor.prototype);
 
-BaseCharacter.prototype.Move = function move() {
+BaseCharacter.prototype.Move = function move(newPosition) {
   this.totalMoves++;
+  this.position = newPosition;
 };
 
 BaseCharacter.prototype.takeDamage = function takeDamage(value) {

@@ -1,4 +1,4 @@
-var SaveStats = function SaveStats() {
+var SaveStats = function() {
   this.willSave = 0;
   this.fortSave = 0;
   this.reflexSave = 0;

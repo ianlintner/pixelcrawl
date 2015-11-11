@@ -1,4 +1,4 @@
-var DefensiveStats = function defensiveStats() {
+var DefensiveStats = function() {
   this.BaseArmorClassBonus = 0;
   this.TemporaryArmorClassBonus = 0;
   this.ArmorClassBonus = 0;
