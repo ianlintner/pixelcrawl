@@ -2,12 +2,21 @@ var Room = require('../map/room');
 var CircleRoom = require('../map/room');
 var CustomRoom = require('../map/room');
 
-var roomFactory = function(roomType, generatorType) {
+/**
+ * RoomFactory Constructor
+ * @param roomType
+ * @param generatorType
+ */
+var RoomFactory = function(roomType, generatorType) {
   this.roomClass = roomType;
   this.generatorType = generatorType;
 };
 
-roomFactory.prototype.createRoom = function createRoom(roomOptions) {
+/**
+ * Main room construction method from room options
+ * @param roomOptions
+ */
+RoomFactory.prototype.createRoom = function createRoom(roomOptions) {
   switch(options.roomType){
     case "Square":
       this.roomClass = Room;
@@ -41,11 +50,14 @@ roomFactory.prototype.createRoom = function createRoom(roomOptions) {
    this.createStaticRoom(roomOptions);
   }
 
-
 };
 
-
-roomFactory.prototype.createRandomRoom = function createRandomRoom(roomOptions) {
+/**
+ * creates a random room from options
+ * @param roomOptions
+ * @returns {*|Room|exports|module.exports}
+ */
+RoomFactory.prototype.createRandomRoom = function createRandomRoom(roomOptions) {
   // the room can be between l x w tiles to the size of the leaf - 2.
   var roomSize = [random.getRandomInt(roomOptions.minWidth, roomOptions.maxWidth - 2), random.getRandomInt(roomOptions.minWidth, roomOptions.maxHeight - 2)];
 
@@ -56,9 +68,14 @@ roomFactory.prototype.createRandomRoom = function createRandomRoom(roomOptions) 
   return room;
 };
 
-roomFactory.prototype.createStaticRoom = function createStaticRoom(roomOptions) {
+/**
+ * creates a static room from options
+ * @param roomOptions
+ * @returns {*}
+ */
+RoomFactory.prototype.createStaticRoom = function createStaticRoom(roomOptions) {
   var room = new this.roomClass.createRoom(roomOptions);
   return room;
 }
 
-module.exports = roomFactory;
+module.exports = RoomFactory;

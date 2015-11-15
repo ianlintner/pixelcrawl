@@ -1,6 +1,7 @@
 var Player = require('../entities/player');
 var Walk = require('../util/walk');
 var bug = require('../util/debugger');
+var gameSystem = require('../core/gameSystem');
 
 var Game = function () {
   this.testentity = null;
@@ -10,32 +11,37 @@ module.exports = Game;
 
 Game.prototype = {
   create: function () {
-    this.game.stage.backgroundColor = 0x444444;
-    this.game.physics.startSystem(Phaser.Physics.arcade);
+    this.gameSystem = gameSystem;
+    this.gameSystem.game = this.game;
+
+
+
+    this.gameSystem.game.stage.backgroundColor = 0x444444;
+    this.gameSystem.game.physics.startSystem(Phaser.Physics.arcade);
     var x = (this.game.width / 2) - 100;
     var y = (this.game.height / 2) - 50;
-    this.map = this.game.add.tilemap();
+    this.gameSystem.map = this.game.add.tilemap();
     //(tileset, key, tileWidth, tileHeight, tileMargin, tileSpacing, gid)
-    this.map.addTilesetImage('crawl_tileset');
-    this.layer1 = this.map.create('level1', 100, 100, 32, 32);
-    this.layer1.resizeWorld();
-    this.map.fill(809, 0, 0, 100, 100, this.layer1);
+    this.gameSystem.map.addTilesetImage('crawl_tileset');
+    this.gameSystem.layers[0] = this.map.create('level1', 100, 100, 32, 32);
+    this.gameSystem.layers[0].resizeWorld();
+    this.gameSystem.map.fill(809, 0, 0, 100, 100, this.layer1);
     //this.map.fill(0, 10, 10, 5, 8, this.layer1);
     var leafs = bug();
     for(var j=0;j<leafs.length;j++) {
       var currentRoom = leafs[j];
-      this.map.fill(0, currentRoom.x+1, currentRoom.y+1, currentRoom.width-2, currentRoom.height-2, this.layer1);
+      this.gameSystem.map.fill(0, currentRoom.x+1, currentRoom.y+1, currentRoom.width-2, currentRoom.height-2, this.gameSystem.layers[0]);
     }
-    this.player = this.game.add.sprite(11*32, 11*32, 'player');
+    this.player = this.gameSystem.game.add.sprite(11*32, 11*32, 'player');
 
-    this.game.physics.arcade.enable(this.layer1);
-    this.game.physics.arcade.enable(this.player);
+    this.gameSystem.game.physics.arcade.enable(this.layer1);
+    this.gameSystem.game.physics.arcade.enable(this.player);
 
-    this.map.setCollision(809);
+    this.gameSystem.map.setCollision(809);
     //Then the physics engine creates collision bodies from the tiles:
 
     //the camera will follow the player in the world
-    this.game.camera.follow(this.player);
+    this.gameSystem.game.camera.follow(this.player);
     this.player.body.setSize(32, 32, 0, 0);
     //move player with cursor keys
     this.cursors = this.game.input.keyboard.createCursorKeys();
@@ -54,7 +60,7 @@ Game.prototype = {
   },
 
   update: function () {
-    this.game.physics.arcade.collide(this.player, this.layer1);
+    this.gameSystem.game.physics.arcade.collide(this.player, this.layer1);
     //player movement
     this.player.body.velocity.y = 0;
     this.player.body.velocity.x = 0;
