@@ -1,10 +1,10 @@
 var random = require('../util/random');
 
 
-function bsp(width, height) {
+function bsp(width, height, minLeafSize, maxLeafSize) {
 
-  var Leaf = function(x, y, width, height) {
-    this.minLeafSize = 6;
+  var Leaf = function(x, y, width, height, minleafSize) {
+    this.minLeafSize = minleafSize;
     this.y = y;
     this.x = x;
     this.width = width;
@@ -36,22 +36,21 @@ function bsp(width, height) {
     // create our left and right children based on the direction of the split
     if (splitHeight)
     {
-      this.leftChild = new Leaf(this.x, this.y, this.width, split);
-      this.rightChild = new Leaf(this.x, this.y + split, this.width, this.height - split);
+      this.leftChild = new Leaf(this.x, this.y, this.width, split, minLeafSize);
+      this.rightChild = new Leaf(this.x, this.y + split, this.width, this.height - split, minLeafSize);
     }
     else
     {
-      this.leftChild = new Leaf(this.x, this.y, split, this.height);
-      this.rightChild = new Leaf(this.x + split, this.y, this.width - split, this.height);
+      this.leftChild = new Leaf(this.x, this.y, split, this.height, minLeafSize);
+      this.rightChild = new Leaf(this.x + split, this.y, this.width - split, this.height, minLeafSize);
     }
     return true; // split successful!
   };
 
 
-  var maxLeafSize = 20;
   var leafs = [];
   var currentLeaf = null;
-  var root = new Leaf(0, 0, width, height);
+  var root = new Leaf(0, 0, width, height, minLeafSize);
   var output = [];
   leafs.push(root);
 

@@ -1,4 +1,4 @@
-var Coordinate = require('../util/coordinate.js');
+var Coordinate = require('../lib/geometry/coordinate.js');
 
 module.exports.calculateMove = function calculateMove(coordinate, direction) {
   var move = getDirection(direction,true);

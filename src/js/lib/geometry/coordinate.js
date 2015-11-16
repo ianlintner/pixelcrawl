@@ -1,4 +1,4 @@
-var Coordinate = function Coordinate(x, y) {
+var Coordinate = function(x, y) {
   this.x = x;
   this.y = y;
 };

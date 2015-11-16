@@ -1,6 +1,7 @@
 var Event = require('../core/events/event');
 var SortedArray = require("collections/sorted-array");
 
+
 var EventQueue = function() {
   this.events = new SortedArray();
   this.currentEvent = null;

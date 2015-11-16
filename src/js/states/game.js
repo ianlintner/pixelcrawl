@@ -28,10 +28,7 @@ Game.prototype = {
     this.gameSystem.map.fill(809, 0, 0, 100, 100, this.layer1);
     //this.map.fill(0, 10, 10, 5, 8, this.layer1);
     var leafs = bug();
-    for(var j=0;j<leafs.length;j++) {
-      var currentRoom = leafs[j];
-      this.gameSystem.map.fill(0, currentRoom.x+1, currentRoom.y+1, currentRoom.width-2, currentRoom.height-2, this.gameSystem.layers[0]);
-    }
+
     this.player = this.gameSystem.game.add.sprite(11*32, 11*32, 'player');
 
     this.gameSystem.game.physics.arcade.enable(this.layer1);
