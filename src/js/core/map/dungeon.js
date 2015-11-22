@@ -2,6 +2,8 @@ var random = require('../util/random');
 var bsp = require('../lib/bsp');
 var Room = require('../map/room');
 var SortedArray = require("collections/sorted-array");
+var Tunneler = require('../../core/map/tunneler');
+var Hallway = require('../../core/map/hallway');
 
 var Dungeon = function(levelData) {
   this.rooms = new SortedArray();
@@ -17,6 +19,7 @@ var Dungeon = function(levelData) {
 Dungeon.prototype.generateDungeon = function generateDungeon() {
   this.divideDungeon();
   this.generateRooms();
+  this.connectRooms();
 };
 
 Dungeon.prototype.divideDungeon = function divideDungeon() {
@@ -31,6 +34,16 @@ Dungeon.prototype.generateRooms = function generateRooms() {
     }
   }
 };
+
+Dungeon.prototype.connectRooms = function connectRooms() {
+  var tunneler = new Tunneler();
+  for (var i=0;i<this.rooms.length-1;i++) {
+    var path = tunneler.createTunnelBetweenRooms(this.rooms[i],this.rooms[i+1]);
+    this.hallways.push(new Hallway(path));
+  }
+};
+
+
 
 module.exports = Dungeon;
 

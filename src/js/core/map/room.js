@@ -1,3 +1,5 @@
+var MidPoint = require('../../lib/geometry/midPoint');
+
 /**
  * Basic Room (square)
  * @constructor
@@ -12,6 +14,7 @@ var Room = function(x, y, width, height) {
   this.height = height;
   this.x = x;
   this.y = y;
+  this.midPoint = MidPoint.findRectangleCenter(this.x, this.x+width, this.y, this.y+height);
 };
 
 Room.prototype.createRoom = function createRoom(roomOptions) {
@@ -20,7 +23,7 @@ Room.prototype.createRoom = function createRoom(roomOptions) {
   this.x = roomOptions.x;
   this.y = roomOptions.y;
   return this;
-}
+};
 
 /**
  * Renders the room on a specified layer in the map.

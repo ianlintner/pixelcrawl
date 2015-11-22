@@ -2,10 +2,8 @@
  * Hallway
  * @constructor
  */
-var Hallway = function() {
-  var tiles = [];
-  var x = 0;
-  var y = 0;
+var Hallway = function(coordinates) {
+  var coordinates = coordinates;
 };
 
 module.exports = Hallway;
